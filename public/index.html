@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Socket fer</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <h1>Chat sockey.io</h1>
+    
+    <div id=conenedor-chat>
+        <div id="mensajes">
+            <p>Este es un mensaje</p>
+        </div>
+
+        <div id="barra-mensaje">
+            <input id="mensaje" type="text" placeholder="Escriba su mensaje aquí..">
+            <input id="btn-enviar" type="button" value="Enviar">
+        </div>
+    </div>
+
+    <div id="notificaciones">
+        <p id="escribiendo">Aca se colocaran las notificaciones</p>
+    </div>
+    
+
+
+    <script src="/socket.io/socket.io.js" charset="utf-8"></script>
+    <script src="chat.js"></script>
+</body>
+</html>
