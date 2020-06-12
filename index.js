@@ -24,7 +24,18 @@ io.on("connection", (socket)=>{
     });
 
     socket.on("chat:escribiendo",(user)=>{
+        if(user==null){
+            user="Nuevo usuario";
+        }
         socket.broadcast.emit("chat:escribiendo",user);
-        // console.log(user+" escribiendo");
+        
+    })
+
+    socket.on("chat:noEscribe",(user)=>{
+        if(user==undefined){
+            user="Nuevo usuario";    
+        }
+        socket.broadcast.emit("chat:noEscribe",user);
+        
     })
 })

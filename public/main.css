@@ -1,4 +1,115 @@
-/* body{
-    background-color: black;
-    color: blanchedalmond;
-} */
+/*VARIABLES DE COLORES*/
+:root{
+    --fondo-pagina:black;
+    --fondo-estado:red;
+    --fondo-mensajes:darksalmon;
+    --fondo-mensaje: darkviolet;
+    --color-fuente: blanchedalmond;
+    
+    color: darkviolet;
+}
+
+body{
+    background-color: var(--fondo-pagina);
+    color: var(--color-fuente);
+    text-align: center;
+}
+
+#contenedor-chat{
+    display: inline-block;
+    width: 600px;
+    border: solid white 2px;
+    border-radius: 3%;
+    padding: 10px;
+}
+
+#padre-mensajes{
+    /* margin-top: -10px ; */
+    background-color: var(--fondo-mensajes);
+    height: 409px;
+    overflow-y: scroll;
+    overflow: hidden;
+    
+    border-radius: 3%;
+    padding-bottom: 29px;
+}
+#padre-mensajes:hover{
+    overflow-y:scroll;
+    margin-top: 2px;
+}
+
+#ul-mensajes{
+    display: flex;
+	flex-direction: column;
+    /*flex-wrap: nowrap;
+    background-color: red; */
+    
+}
+    #li-mensaje{
+        display: flex;
+        flex-direction: row; /*flex-direction: row-reverse; PARA LOS MENSAJES QUE YO ENVIO*/
+        flex-wrap: nowrap;
+        
+        /* background-color: royalblue; */
+        margin-bottom: 3px;   
+    }
+    .mensaje-otro{
+        /* no hago nada */
+    }
+    .mensaje-mio{
+        flex-direction: row-reverse;/*NO FUNCIONA NO SE PORQUE*/
+        justify-content: flex-end;
+        padding-right: 10px;
+    }
+
+        #nombre-usuario{
+            /* background-color: saddlebrown; */
+            max-width: 130px;
+            display: flex;
+            align-items: center;
+        }
+        #texto-mensaje{
+            background-color: var(--fondo-mensaje);
+            padding: 3px;
+            border-radius: 10%;
+            border: solid 1px grey;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+        #hora-mensaje{
+            display: flex;
+            /* justify-content: center; */
+            align-items: flex-end; /*ALINEA VERTICALMENTE*/
+            /* background-color: blue; */
+            font-size: 65%;
+        
+        }
+        
+    #barra-estado{
+        margin-top: 10px;
+        margin-bottom: 1px;
+        padding-left: 10px;
+        height: 20px;
+        background-color: red;
+        text-align: left;
+        border-radius: 2%;
+    }
+
+#barra-mensaje{   
+}
+    #mensaje{
+        width: 89%;
+        height: 34px;
+        /* margin-top: 20px; */
+        resize: none;
+    }
+    #btn-enviar{
+        /* width: 9%; */
+        width: 40px;
+        height: 40px;
+        background-image: url("images/send1.png");
+        background-size: 140% ;
+        background-repeat: no-repeat;
+        background-position: center;
+        border-radius: 50%;
+    }

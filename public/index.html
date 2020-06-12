@@ -3,20 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Socket fer</title>
+    <title>Chat en Vivo</title>
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
-    <h1>Chat sockey.io</h1>
-    
-    <div id=conenedor-chat>
-        <div id="mensajes">
-            <p>Este es un mensaje</p>
+    <h1>Chat en vivo con Socket.io</h1>
+
+    <div id="contenedor-chat">
+        <div id="padre-mensajes">
+            <ul id="ul-mensajes">
+                <li id="li-mensaje" class="mensaje-otro"> 
+                    <label id="nombre-usuario">Usuario 1</label>
+                    <label id="texto-mensaje">Este es un mensajee</label>
+                    <label id="hora-mensaje">10:25</label>
+                </li>
+
+                <li id="li-mensaje" class="mensaje-mio"> 
+                    <label id="nombre-usuario">usuario</label>
+                    <label id="texto-mensaje">Este es otro mensajito un poco mas largo q el otro</label>
+                    <label id="hora-mensaje">10:25</label>
+                </li>
+            </ul>
+
         </div>
+        <p id="barra-estado">Estado: Alguien esta escribiendo</p>
 
         <div id="barra-mensaje">
-            <input id="mensaje" type="text" placeholder="Escriba su mensaje aquí..">
-            <input id="btn-enviar" type="button" value="Enviar">
+            <textarea id="mensaje" placeholder="Escriba su mensaje aquí.."></textarea>
+            <input id="btn-enviar" type="button" value="">
         </div>
     </div>
 
