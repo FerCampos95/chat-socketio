@@ -67,6 +67,9 @@ body{
             max-width: 130px;
             display: flex;
             align-items: center;
+            font-weight: bold;
+            font-style: italic;
+            text-decoration: underline var(--color-fuente);
         }
         #texto-mensaje{
             background-color: var(--fondo-mensaje);
