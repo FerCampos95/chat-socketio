@@ -15,48 +15,49 @@ const server = app.listen(app.get("port"), ()=>{
 const SocketIO= require("socket.io");
 const io= SocketIO(server);
 
+let conectados= new Array();
 //websockets
 io.on("connection", (socket)=>{
     console.log("Se conecto alguien, socket: "+socket.id);
+
     
-    socket.on("conectados",(info)=>{
-        data={
-            nombreUsuario: info.usuario,
-            id: socket.id
+    socket.on("nuevoConectado",(nuevo)=>{
+        let data={
+            nombreUsuario: nuevo.usuario,
+            idUsuario: socket.id
         }
-        socket.broadcast.emit("conectados",data);
-        console.log("Info enviada"+data);
+        conectados.push(data);
     })
+    socket.on("pedirConectados",()=>{
+        io.sockets.emit("pedirConectados",conectados);
+    })
+    // socket.on("conectados",(info)=>{
+    //     data={
+    //         nombreUsuario: info.usuario,
+    //         id: socket.id
+    //     }
+    //     socket.broadcast.emit("conectados",data);
+    //     // socket.broadcast.emit("informacion",socket);
+    //     console.log("Info enviada:"+socket);
+    // })
 
     socket.on("chat:mensaje",(info)=>{
         io.sockets.emit("chat:mensaje",info);
     });
 
     socket.on("chat:escribiendo",(users)=>{
-        // console.log(typeof(users));
-        // console.log(users);
-        
-        // users.forEach( (u)=> {
-        //     if(u==null){
-        //         u="Nuevo Usuario";
-        //         console.log("un usuario es null y ahora es: "+u);
-        //     }
-        //     console.log("recorro users");
-        // });
-        
-        // console.log(users);
         socket.broadcast.emit("chat:escribiendo",users);
-        // console.log("emitido");
     })
 
-    // socket.on("chat:noEscribe",(user)=>{
-    //     if(user==undefined){
-    //         user="Nuevo usuario";    
-    //     }
-    //     socket.broadcast.emit("chat:noEscribe",user); 
-    // })
     socket.on("disconnect", ()=>{
-        console.log("usuario desconectado"+ socket.id);
+        // console.log("usuario desconectado"+ socket.id);
+        conectados.forEach( (user, index)=>{
+            if(user.idUsuario == socket.id){
+                console.log(user.nombreUsuario + " se desconecto");
+                conectados.splice(index,1); //elimino el usuario de la lista de conectados
+            }
+        })
+        io.sockets.emit("pedirConectados",conectados);//emito los conectados para que se le actualice a todos
     })
 })
 

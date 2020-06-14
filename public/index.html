@@ -9,6 +9,14 @@
 <body>
     <h1>Chat en vivo con Socket.io</h1>
 
+    <div id="ingresar-usuario">
+        <h2>Ingrese un nombre de Usuario</h2>
+        <p id="requisitos">Máximo 15 Caracteres:</p>
+        <label id="caracteres">*</label>
+        <input id="ingreso-usuario" type="text">
+        <input id="btn-iniciar" type="button" value="Iniciar">
+    </div>
+
     <div id="contenedor-chat">
         <div id="padre-mensajes">
             <ul id="ul-mensajes">
@@ -26,7 +34,7 @@
             </ul>
 
         </div>
-        <p id="barra-estado">Estado: Alguien esta escribiendo</p>
+        <p id="escribiendo"></p>
 
         <div id="barra-mensaje">
             <textarea id="mensaje" placeholder="Escriba su mensaje aquí.."></textarea>
@@ -34,8 +42,12 @@
         </div>
     </div>
 
-    <div id="notificaciones">
-        <p id="escribiendo">Aca se colocaran las notificaciones</p>
+    <div id="padre-conectados">
+        <!-- <p id="notificacion">Aca se colocaran las notificaciones</p> -->
+        <h3>Usuarios Conectados</h3>
+        <ul id="ul-conectados">
+            <!-- <li id="li-conectados">Nombre usuario</li> -->
+        </ul>
     </div>
     
 

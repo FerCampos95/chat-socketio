@@ -5,6 +5,7 @@
     --fondo-mensajes:darksalmon;
     --fondo-mensaje: darkviolet;
     --color-fuente: blanchedalmond;
+
     
     color: darkviolet;
 }
@@ -88,12 +89,12 @@ body{
         
         }
         
-    #barra-estado{
+    #escribiendo{
         margin-top: 10px;
-        margin-bottom: 1px;
+        margin-bottom: 3px;
         padding-left: 10px;
         height: 20px;
-        background-color: red;
+        background-color: var(--fondo-estado);
         text-align: left;
         border-radius: 2%;
     }

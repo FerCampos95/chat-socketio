@@ -1,17 +1,72 @@
-// console.log("Chateando");
+// const io = require("express");
+
 const socket =io();
 
+let contenedorChat=document.getElementById("contenedor-chat");
 let mensaje= document.getElementById("mensaje");
 let btnEnviar= document.getElementById("btn-enviar");
+let btnIniciar=document.getElementById("btn-iniciar");
 let ulMensajes= document.getElementById("ul-mensajes");
 let divNotificaciones= document.getElementById("notificaciones");
 let escribiendo= document.getElementById("escribiendo");
 let usuarios=new Array();
 let listaUsuarios=new Array();
+let inputUsuario =document.getElementById("ingreso-usuario");
 
-// let usuario= document.getElementById("nombre-usuario");
 let usuario=undefined;
 let hora;
+
+contenedorChat.style.display='none';
+socket.emit("pedirConectados");
+
+
+
+btnIniciar.addEventListener("click", ingresarUsuario);
+inputUsuario.addEventListener("keyup", (event)=>{
+    let contadorCaracteres= document.getElementById("caracteres");
+    contadorCaracteres.innerText= inputUsuario.value.length;
+    if(contadorCaracteres.innerText > 15){
+        contadorCaracteres.style.color="red";
+    }else{
+        contadorCaracteres.style.color="green";
+    }
+
+    //FINALMENTE SI PRESIONO ENTER PRESIONO INICIAR y puedo escribir mensaje
+    if(event.keyCode == 13){
+        ingresarUsuario();
+        mensaje.focus();
+    }
+})
+
+function ingresarUsuario(){
+    usuario= document.getElementById("ingreso-usuario").value;
+    let etiquetaRequisitos= document.getElementById("requisitos");
+
+    if(usuario=="" || usuario==null || usuario=="undefined" || usuario.trim()=="" || usuario ==undefined || usuario.length>15){
+        etiquetaRequisitos.innerText="Error, el usuario debe tener entre 1-15 Caracteres";
+        inputUsuario.focus();
+        return;
+    }
+
+    let tengoQueSalir=false;//variable para guardar la respuesta del foreach
+    listaUsuarios.forEach( (user) =>{
+        if(user.nombreUsuario == usuario){
+            console.log("Comparando: "+user.nombreUsuario +" - " +usuario);
+            etiquetaRequisitos.innerText="Lo siento, El nombre de usuario ya está en uso";
+            tengoQueSalir= true;
+        }
+    })
+    if(tengoQueSalir)
+        return;
+
+    document.getElementById("ingresar-usuario").style.display="none";
+    contenedorChat.style.display='inline-block';
+
+    socket.emit("nuevoConectado",{ ///para q todos sepan usuario y id
+        usuario: usuario
+    })
+    socket.emit("pedirConectados");
+}
 
 btnEnviar.addEventListener("click",emitirMensaje);
 
@@ -22,18 +77,14 @@ function emitirMensaje(e){
 
     hora= new Date();
     hora= hora.getHours()+":"+hora.getMinutes();
-    if(usuario==undefined){
-        do{
-            usuario=window.prompt("Ingrese el nombre de usuario(15 caracteres max): ");
-            if(usuario==null){
-                return;
-            }
-        }while(usuario.length>15);
-    
-        socket.emit("conectados",{ ///para q todos sepan usuario y id
-            usuario: usuario
-        })
-    }
+    // if(usuario==undefined){
+    //     do{
+    //         usuario=window.prompt("Ingrese el nombre de usuario(15 caracteres max): ");
+    //         if(usuario==null){
+    //             return;
+    //         }
+    //     }while(usuario.length>15);
+    // }
     
     socket.emit("chat:mensaje",{ //envio los datos al index.js
         mensaje: mensaje.value,
@@ -129,12 +180,47 @@ socket.on("chat:escribiendo",(users)=>{
     }
 })
 
-socket.on("conectados", (data)=>{
-    listaUsuarios.push(data);
+// socket.on("conectados", (data)=>{
+//     console.log(listaUsuarios);
+//     console.log(data);
 
-    console.log(listaUsuarios);
-})
+//     // listaUsuarios.push(data);
+//     listaUsuarios=data;
 
-// socket.on("chat:noEscribe",(user)=>{
-//     escribiendo.innerText=user+"ya no escribe";
+//     let ulConectados=document.getElementById("ul-conectados");
+//     // console.log(ulConectados);
+//     while(ulConectados.firstChild){///mientras haya un primer li
+//         ulConectados.removeChild(ulConectados.firstChild);//lo remueve;
+//     }
+
+//     listaUsuarios.forEach( (user)=>{
+//         let liConectado= document.createElement("li");
+//         liConectado.id="li-conectado";
+//         liConectado.innerText= data.nombreUsuario + "id: "+data.id; 
+
+//         ulConectados.appendChild(liConectado);
+//     })
+
+//     console.log(listaUsuarios);
 // })
+
+socket.on("pedirConectados", (data)=>{ //data es un array con los conectados y su ID
+    // console.log(data);
+
+    listaUsuarios=data;
+    console.log(listaUsuarios);
+
+    let ulConectados=document.getElementById("ul-conectados");
+
+    while(ulConectados.firstChild){///mientras haya un primer li
+        ulConectados.removeChild(ulConectados.firstChild);//lo remueve;
+    }
+
+    listaUsuarios.forEach( (user)=>{
+        let liConectado= document.createElement("li");
+        liConectado.id="li-conectado";
+        liConectado.innerText= user.nombreUsuario/* + " y su id: "+ user.idUsuario*/; 
+
+        ulConectados.appendChild(liConectado);
+    })
+})
