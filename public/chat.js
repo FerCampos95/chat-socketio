@@ -174,7 +174,7 @@ socket.on("chat:escribiendo",(users)=>{
     })
     
     if(lineaUsuarios===""){
-        escribiendo.innerText="Nadie esta escribiendo";
+        escribiendo.innerText="";
     }else{
         escribiendo.innerText=lineaUsuarios+" esta escribiendo";
     }
@@ -218,7 +218,7 @@ socket.on("pedirConectados", (data)=>{ //data es un array con los conectados y s
 
     listaUsuarios.forEach( (user)=>{
         let liConectado= document.createElement("li");
-        liConectado.id="li-conectado";
+        liConectado.className="li-conectado";
         liConectado.innerText= user.nombreUsuario/* + " y su id: "+ user.idUsuario*/; 
 
         ulConectados.appendChild(liConectado);

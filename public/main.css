@@ -1,13 +1,12 @@
 /*VARIABLES DE COLORES*/
 :root{
     --fondo-pagina:black;
-    --fondo-estado:red;
-    --fondo-mensajes:darksalmon;
-    --fondo-mensaje: darkviolet;
+    --fondo-estado:#E2DFE6;
+    --fondo-mensajes:#DDFAF7;
+    --fondo-mensaje: white;
     --color-fuente: blanchedalmond;
-
-    
-    color: darkviolet;
+    --color-fuente2: black;
+    --color-fuente-mensaje: black;
 }
 
 body{
@@ -18,19 +17,19 @@ body{
 
 #contenedor-chat{
     display: inline-block;
-    width: 600px;
+    width: 90%;
     border: solid white 2px;
     border-radius: 3%;
-    padding: 10px;
+    padding: 2%;
 }
 
 #padre-mensajes{
     /* margin-top: -10px ; */
     background-color: var(--fondo-mensajes);
     height: 409px;
+    width: auto;
     overflow-y: scroll;
     overflow: hidden;
-    
     border-radius: 3%;
     padding-bottom: 29px;
 }
@@ -44,15 +43,13 @@ body{
 	flex-direction: column;
     /*flex-wrap: nowrap;
     background-color: red; */
-    
 }
     #li-mensaje{
         display: flex;
         flex-direction: row; /*flex-direction: row-reverse; PARA LOS MENSAJES QUE YO ENVIO*/
         flex-wrap: nowrap;
-        
         /* background-color: royalblue; */
-        margin-bottom: 3px;   
+        margin-bottom: 3px;
     }
     .mensaje-otro{
         /* no hago nada */
@@ -70,10 +67,12 @@ body{
             align-items: center;
             font-weight: bold;
             font-style: italic;
-            text-decoration: underline var(--color-fuente);
+            /* text-decoration: underline var(--color-fuente); */
+            color: var(--color-fuente2)
         }
         #texto-mensaje{
             background-color: var(--fondo-mensaje);
+            color: var(--color-fuente-mensaje);
             padding: 3px;
             border-radius: 10%;
             border: solid 1px grey;
@@ -86,34 +85,50 @@ body{
             align-items: flex-end; /*ALINEA VERTICALMENTE*/
             /* background-color: blue; */
             font-size: 65%;
-        
+            color: var(--color-fuente2)
         }
-        
+
     #escribiendo{
         margin-top: 10px;
         margin-bottom: 3px;
         padding-left: 10px;
         height: 20px;
         background-color: var(--fondo-estado);
+        color: var(--color-fuente2);
         text-align: left;
         border-radius: 2%;
     }
 
-#barra-mensaje{   
+#barra-mensaje{
 }
     #mensaje{
-        width: 89%;
-        height: 34px;
+        width: 80%;
+        height: 100%;
         /* margin-top: 20px; */
         resize: none;
     }
     #btn-enviar{
         /* width: 9%; */
-        width: 40px;
-        height: 40px;
+        width: 35px;
+        height: 35px;
         background-image: url("images/send1.png");
         background-size: 140% ;
         background-repeat: no-repeat;
         background-position: center;
         border-radius: 50%;
     }
+
+#ul-conectados{
+    padding: 0px;
+    margin: 0px;
+}
+
+.li-conectado{
+    list-style: none;
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+    /* display: flex; */
+    /* flex-direction: column;
+    margin: auto; */
+}
